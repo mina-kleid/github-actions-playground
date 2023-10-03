@@ -1,0 +1,19 @@
+name: Test
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Regex
+        shell: bash
+        env:
+          ARN: arn:aws:devicefarm:us-west-2:902311805216:run:dd59e9d7-99a4-45bd-adaf-4be595ec2c7a/1830e797-691d-4134-a3b5-e53c64f2feee
+        run: |
+         run_id=$(echo "$ARN" | sed 's/.*\///')
+         echo $run_id >> $GITHUB_ENV
+      - name: Echo
+        run: |
+          echo $run_id
